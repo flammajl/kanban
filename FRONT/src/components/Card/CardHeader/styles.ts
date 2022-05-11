@@ -4,6 +4,7 @@ export const Container = styled.div`
   height: 50px;
   background: #fff;
   border-radius: 0 0 8px 8px;
+  box-shadow: 2px 2px 3px rgba(46, 46, 77, 0.2);
 
   position: relative;
 
@@ -47,7 +48,5 @@ export const Header = styled.header`
     color: #04a9f4;
     background: none;
     border: none;
-
-    height: 1.5rem;
   }
 `;

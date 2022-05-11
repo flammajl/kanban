@@ -17,7 +17,6 @@ export function CardHeader({ type }: ICardType) {
           <FiPlusCircle size={24} />
         </button>
       </S.Header>
-      <div>+ new task</div>
     </S.Container>
   );
 }
