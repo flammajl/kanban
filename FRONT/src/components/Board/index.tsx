@@ -1,3 +1,15 @@
+import { CardHeader } from '../Card/CardHeader';
+
+import * as S from './styles';
+
 export function Board() {
-  return <h1>Hello World</h1>;
+  return (
+    <S.Wrapper>
+      <div>
+        <CardHeader type="ToDo" />
+        <CardHeader type="Doing" />
+        <CardHeader type="Done" />
+      </div>
+    </S.Wrapper>
+  );
 }
