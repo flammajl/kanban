@@ -1,3 +1,4 @@
+import { List } from '../List';
 import { Card } from '../Card';
 import { CardHeader } from '../Card/CardHeader';
 
@@ -7,7 +8,7 @@ export function Board() {
   return (
     <S.Wrapper>
       <div>
-        <Card />
+        <List />
         <CardHeader type="Doing" />
         <CardHeader type="Done" />
       </div>
