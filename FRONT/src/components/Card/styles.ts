@@ -27,6 +27,7 @@ export const Container = styled.li`
 
   textarea {
     padding: 0.5rem;
+    width: 100%;
   }
 `;
 
@@ -67,7 +68,25 @@ export const Header = styled.header`
 export const Content = styled.div`
   flex: 1;
 
+  position: relative;
   padding: 0.5rem;
 
   color: #5e5e7a;
+
+  button {
+    /* position: absolute; */
+    /* bottom: 20px;
+    right: 25px; */
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    background: #dcdcec;
+    padding: 0.25rem;
+    color: #2e2e4d;
+    border: 1px solid #2e2e4d;
+    border-radius: 8px;
+  }
 `;
