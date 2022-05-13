@@ -1,4 +1,4 @@
-FROM node:14.17.3
+FROM node:14.17.3-slim
 
 ENV VITE_API_URL=http://localhost:5000
 
