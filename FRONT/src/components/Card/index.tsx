@@ -21,6 +21,7 @@ export function Card({ data }: ICard) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const listTypes = ['ToDo', 'Doing', 'Done'];
 
@@ -50,6 +51,7 @@ export function Card({ data }: ICard) {
 
   const updateTask = useMutation(
     async () => {
+      setIsLoading(true);
       try {
         await api.put(`/cards/${data.id}`, {
           ...data,
@@ -62,6 +64,8 @@ export function Card({ data }: ICard) {
         setIsPreviewMode(false);
       } catch (error) {
         toast.error('Erro ao tentar atualizar card.');
+      } finally {
+        setIsLoading(false);
       }
     },
     {
@@ -73,6 +77,7 @@ export function Card({ data }: ICard) {
 
   const updateTaskList = useMutation(
     async (list: string) => {
+      setIsLoading(true);
       try {
         await api.put(`/cards/${data.id}`, {
           ...data,
@@ -84,6 +89,8 @@ export function Card({ data }: ICard) {
         setIsPreviewMode(false);
       } catch (error) {
         toast.error('Erro ao tentar atualizar card.');
+      } finally {
+        setIsLoading(false);
       }
     },
     {
@@ -95,12 +102,15 @@ export function Card({ data }: ICard) {
 
   const deleteTask = useMutation(
     async () => {
+      setIsLoading(true);
       try {
         await api.delete(`/cards/${data.id}`);
 
         toast.success('Card deletado com sucesso !');
       } catch (error) {
         toast.error('Erro ao tentar deletar card.');
+      } finally {
+        setIsLoading(false);
       }
     },
     {
@@ -187,7 +197,7 @@ export function Card({ data }: ICard) {
           <Markdown content={content} />
         )}
         {isEditMode && (
-          <button type="button" onClick={handleUpdateCard}>
+          <button type="button" onClick={handleUpdateCard} disabled={isLoading}>
             Atualizar
           </button>
         )}
@@ -199,6 +209,7 @@ export function Card({ data }: ICard) {
             <S.LeftArrow
               type="button"
               onClick={() => handleUpdateCardList('previous')}
+              disabled={isLoading}
             >
               <FiArrowLeftCircle />
             </S.LeftArrow>
@@ -208,6 +219,7 @@ export function Card({ data }: ICard) {
             <S.RightArrow
               type="button"
               onClick={() => handleUpdateCardList('next')}
+              disabled={isLoading}
             >
               <FiArrowRightCircle />
             </S.RightArrow>
@@ -229,7 +241,11 @@ export function Card({ data }: ICard) {
               <button type="button" onClick={handleCloseModal}>
                 Cancelar
               </button>
-              <button type="button" onClick={handleDeleteCard}>
+              <button
+                type="button"
+                onClick={handleDeleteCard}
+                disabled={isLoading}
+              >
                 Deletar
               </button>
             </S.DeleteButtonsContainer>

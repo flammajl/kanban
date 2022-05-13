@@ -35,6 +35,10 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+    }
   }
 
   .react-modal-overlay {

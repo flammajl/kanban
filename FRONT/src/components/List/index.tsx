@@ -16,6 +16,7 @@ export function List({ list, cards }: IList) {
   const [content, setContent] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handlePreviewMode() {
     setIsPreviewMode(!isPreviewMode);
@@ -36,6 +37,7 @@ export function List({ list, cards }: IList) {
 
   const createTask = useMutation(
     async () => {
+      setIsLoading(true);
       try {
         await api.post('/cards', {
           titulo: title,
@@ -48,6 +50,8 @@ export function List({ list, cards }: IList) {
         setIsPreviewMode(false);
       } catch (error) {
         toast.error('Erro ao cadastrar card.');
+      } finally {
+        setIsLoading(false);
       }
     },
     {
@@ -116,7 +120,9 @@ export function List({ list, cards }: IList) {
               </div>
             )}
 
-            <button type="submit">Criar Card</button>
+            <button type="submit" disabled={isLoading}>
+              Criar Card
+            </button>
           </S.Form>
         </S.Content>
       </Modal>
