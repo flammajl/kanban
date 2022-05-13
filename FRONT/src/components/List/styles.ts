@@ -16,6 +16,10 @@ export const Wrapper = styled.div`
     border: none;
     background: none;
     width: fit-content;
+
+    @media (max-width: 1175px) {
+      display: none;
+    }
   }
 `;
 
