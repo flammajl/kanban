@@ -45,6 +45,7 @@ export function List({ list, cards }: IList) {
         toast.success('Card cadastrado com sucesso !');
         clearModal();
         handleCloseModal();
+        setIsPreviewMode(false);
       } catch (error) {
         toast.error('Erro ao cadastrar card.');
       }
