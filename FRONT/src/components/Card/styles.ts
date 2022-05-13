@@ -65,14 +65,14 @@ export const Content = styled.div`
 
   color: #5e5e7a;
 
-  div {
+  > div {
     textarea {
       padding: 0.5rem;
       width: 100%;
       border: 1px solid currentColor;
     }
 
-    button {
+    > button {
       background: none;
       border: none;
       margin-top: 0;
@@ -92,6 +92,12 @@ export const Content = styled.div`
     color: #2e2e4d;
     border: 1px solid #2e2e4d;
     border-radius: 8px;
+  }
+`;
+
+export const DeleteButtonsContainer = styled.div`
+  button {
+    margin-left: 0;
   }
 `;
 

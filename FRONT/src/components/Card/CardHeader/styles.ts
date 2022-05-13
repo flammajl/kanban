@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { ICardList } from '../../../interfaces';
 
-export const Container = styled.div`
+export const Container = styled.div<Pick<ICardList, 'lista'>>`
   height: 50px;
   border-radius: 0 0 8px 8px;
 
@@ -14,7 +15,7 @@ export const Container = styled.div`
     left: 0;
     width: 5px;
     height: 100%;
-    background: #04a9f4;
+    background: ${({ theme, lista }) => theme.colors[lista]};
   }
 
   > div {
@@ -24,7 +25,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Header = styled.header`
+export const Header = styled.header<Pick<ICardList, 'lista'>>`
   height: 100%;
   display: flex;
   align-items: center;
@@ -41,7 +42,7 @@ export const Header = styled.header`
   }
 
   button {
-    color: #04a9f4;
+    color: ${({ theme, lista }) => theme.colors[lista]};
     background: none;
     border: none;
   }

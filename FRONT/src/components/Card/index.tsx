@@ -225,14 +225,14 @@ export function Card({ data }: ICard) {
           <S.ModalContent>
             <h1>Tem certeza que deseja deletar este card ?</h1>
 
-            <div>
+            <S.DeleteButtonsContainer>
               <button type="button" onClick={handleCloseModal}>
                 Cancelar
               </button>
               <button type="button" onClick={handleDeleteCard}>
                 Deletar
               </button>
-            </div>
+            </S.DeleteButtonsContainer>
           </S.ModalContent>
         </S.Content>
       </Modal>
