@@ -2,7 +2,7 @@ export interface ICardList {
   id: string;
   titulo: string;
   conteudo: string;
-  lista: string;
+  lista: 'ToDo' | 'Doing' | 'Done';
 }
 
 export interface IList {

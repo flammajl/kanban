@@ -8,9 +8,15 @@ export const Container = styled.li`
   min-height: 12rem;
   border-radius: 8px;
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  &:hover button {
+    display: block;
+  }
 `;
 
 export const Header = styled.header`
@@ -169,4 +175,43 @@ export const PopoverContent = styled(Popover.Content)`
 `;
 export const Arrow = styled(Popover.Arrow)`
   fill: #c8d1de;
+`;
+
+export const LeftArrow = styled.button`
+  display: none;
+  border: none;
+  background: transparent;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  svg {
+    color: #2e2e4d;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+`;
+export const RightArrow = styled.button`
+  display: none;
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  svg {
+    color: #2e2e4d;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
 `;
