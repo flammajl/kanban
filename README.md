@@ -1,4 +1,4 @@
-O projeto é um quadro Kanban com CRUD completo para que possa organizar as tasks.
+O projeto é um quadro Kanban com CRUD completo para que possa organizar as tasks. Talvez por esse ser o meu segundo contato com Vite, o dockerfile do front gera a imagem certo e roda o projeto mas sem acesso pelo localhost, talvez seja necessária uma configuração a mais.
 
 ## **:camera: Screenshot**
 
