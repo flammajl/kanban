@@ -58,7 +58,7 @@ export function Card({ data }: ICard) {
         });
 
         toast.success('Card atualizado com sucesso !');
-        setIsEditMode(!isEditMode);
+        setIsEditMode(false);
         setIsPreviewMode(false);
       } catch (error) {
         toast.error('Erro ao tentar atualizar card.');
@@ -80,7 +80,7 @@ export function Card({ data }: ICard) {
         });
 
         toast.success('Card atualizado com sucesso !');
-        setIsEditMode(!isEditMode);
+        setIsEditMode(false);
         setIsPreviewMode(false);
       } catch (error) {
         toast.error('Erro ao tentar atualizar card.');
