@@ -37,6 +37,8 @@ $ yarn dev | npm run dev
 # O servidor inciará na porta:3000 - acesse <http://localhost:3000>
 ```
 
+Ou acesse o Demo: https://kanban-flammajl.vercel.app
+
 ## 📝 Licença
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo de [LICENÇA](https://github.com/flammajl/kanban/blob/master/LICENSE) para detalhes.
