@@ -42,7 +42,7 @@ jobs:
         run: cd FRONT && yarn install
 
       - name: Linting
-        run: yarn lint
+        run: cd FRONT && yarn lint
 
       - name: Build
-        run: yarn build
+        run: cd FRONT && yarn build
