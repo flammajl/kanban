@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { FiEye, FiEyeOff, FiMoreHorizontal, FiTrash2 } from 'react-icons/fi';
+import { FiMoreHorizontal } from 'react-icons/fi';
 import Modal from 'react-modal';
+import * as Popover from '@radix-ui/react-popover';
 
 import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
@@ -36,6 +37,29 @@ export function Card({ data }: ICard) {
     setIsPreviewMode(!isPreviewMode);
   }
 
+  const updateTask = useMutation(
+    async () => {
+      try {
+        await api.put(`/cards/${data.id}`, {
+          ...data,
+          titulo: title,
+          conteudo: content,
+        });
+
+        toast.success('Card atualizado com sucesso !');
+        setIsEditMode(!isEditMode);
+        setIsPreviewMode(false);
+      } catch (error) {
+        toast.error('Erro ao tentar atualizar card.');
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('cards');
+      },
+    }
+  );
+
   const deleteTask = useMutation(
     async () => {
       try {
@@ -57,6 +81,10 @@ export function Card({ data }: ICard) {
     await deleteTask.mutateAsync();
   }
 
+  async function handleUpdateCard() {
+    await updateTask.mutateAsync();
+  }
+
   return (
     <S.Container>
       <S.Header>
@@ -68,48 +96,61 @@ export function Card({ data }: ICard) {
             onChange={e => setTitle(e.target.value)}
           />
         ) : (
-          <>
-            <button type="button" onClick={handleOpenModal}>
-              <FiTrash2 />
-            </button>
-
-            <h3>{title}</h3>
-          </>
+          <h3>{title}</h3>
         )}
-        <button type="button" onClick={handleEditMode}>
-          <FiMoreHorizontal />
-        </button>
+        <Popover.Root>
+          <Popover.Trigger asChild>
+            <button type="button">
+              <FiMoreHorizontal />
+            </button>
+          </Popover.Trigger>
+          <S.PopoverContent sideOffset={5}>
+            <div>
+              <button type="button" onClick={handleEditMode}>
+                {isEditMode ? 'Cancelar' : 'Editar'}
+              </button>
+              <button type="button" onClick={handleOpenModal}>
+                Deletar
+              </button>
+            </div>
+
+            <S.Arrow />
+          </S.PopoverContent>
+        </Popover.Root>
       </S.Header>
       <S.Content>
         {isEditMode ? (
           // eslint-disable-next-line react/jsx-no-useless-fragment
           <>
             {isPreviewMode ? (
-              <Markdown content={content} />
+              <div>
+                <Markdown content={content || 'Nenhum conteúdo'} />
+                <button type="button" onClick={handlePreviewMode}>
+                  Close Preview
+                </button>
+              </div>
             ) : (
-              <textarea
-                value={content}
-                placeholder="Digite o conteúdo em Markdown..."
-                onChange={e => setContent(e.target.value)}
-                cols={30}
-                rows={10}
-              />
+              <div>
+                <textarea
+                  value={content}
+                  placeholder="Digite o conteúdo em Markdown..."
+                  onChange={e => setContent(e.target.value)}
+                  cols={30}
+                  rows={10}
+                  required
+                />
+                <button type="button" onClick={handlePreviewMode}>
+                  Preview
+                </button>
+              </div>
             )}
           </>
         ) : (
           <Markdown content={content} />
         )}
         {isEditMode && (
-          <button type="button" onClick={handlePreviewMode}>
-            {isPreviewMode ? (
-              <>
-                <FiEyeOff /> Close Preview
-              </>
-            ) : (
-              <>
-                <FiEye /> Preview
-              </>
-            )}
+          <button type="button" onClick={handleUpdateCard}>
+            Atualizar
           </button>
         )}
       </S.Content>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as Popover from '@radix-ui/react-popover';
 
 export const Container = styled.li`
   background: #fff;
@@ -10,11 +11,6 @@ export const Container = styled.li`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  textarea {
-    padding: 0.5rem;
-    width: 100%;
-  }
 `;
 
 export const Header = styled.header`
@@ -63,8 +59,23 @@ export const Content = styled.div`
 
   color: #5e5e7a;
 
-  > button {
+  div {
+    textarea {
+      padding: 0.5rem;
+      width: 100%;
+      border: 1px solid currentColor;
+    }
+
+    button {
+      background: none;
+      border: none;
+      margin-top: 0;
+    }
+  }
+
+  button {
     margin-left: auto;
+    margin-top: 0.5rem;
 
     display: flex;
     align-items: center;
@@ -118,4 +129,44 @@ export const ModalContent = styled.div`
       filter: brightness(0.9);
     }
   }
+`;
+
+export const PopoverContent = styled(Popover.Content)`
+  border-radius: 4px;
+  padding: 5px;
+  width: calc(100% + 2rem);
+  color: #2e2e4d;
+  position: relative;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      width: 100%;
+      background-color: #c8d1de;
+      transition: filter 0.2s;
+      color: #3e3e3e;
+
+      & + button {
+        border-top: 1px solid #ddd;
+      }
+
+      &:hover {
+        filter: brightness(0.9);
+      }
+    }
+  }
+
+  &:focus {
+    box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+      hsl(206 22% 7% / 20%) 0px 10px 20px -15px, 0 0 0 2px #443592;
+  }
+`;
+export const Arrow = styled(Popover.Arrow)`
+  fill: #c8d1de;
 `;
