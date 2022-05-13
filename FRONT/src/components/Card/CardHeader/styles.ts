@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 50px;
-  background: #fff;
   border-radius: 0 0 8px 8px;
-  box-shadow: 2px 2px 3px rgba(46, 46, 77, 0.2);
 
   position: relative;
 
@@ -14,8 +12,8 @@ export const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 2px;
+    width: 5px;
+    height: 100%;
     background: #04a9f4;
   }
 
@@ -23,7 +21,6 @@ export const Container = styled.div`
     color: #5e5e7a;
     margin-top: 2rem;
     cursor: pointer;
-    text-transform: uppercase;
   }
 `;
 
@@ -39,7 +36,6 @@ export const Header = styled.header`
     flex: 1;
 
     h2 {
-      text-transform: uppercase;
       color: #2e2e4d;
     }
   }

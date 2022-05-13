@@ -1,22 +1,60 @@
 import { useState } from 'react';
-import { FiEdit, FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiMoreHorizontal, FiTrash2 } from 'react-icons/fi';
+import Modal from 'react-modal';
 
+import { useMutation } from 'react-query';
+import toast from 'react-hot-toast';
 import * as S from './styles';
 import { Markdown } from './Markdown';
+import { api } from '../../services/api';
+import { queryClient } from '../../services/queryClient';
+import { ICard } from '../../interfaces';
 
-export function Card() {
-  const [title, setTitle] = useState('Card');
-  const [content, setContent] = useState('');
+export function Card({ data }: ICard) {
+  const [title, setTitle] = useState(data.titulo);
+  const [content, setContent] = useState(data.conteudo);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function handleEditMode() {
     setIsEditMode(!isEditMode);
     setIsPreviewMode(false);
+    setTitle(data.titulo);
+    setContent(data.conteudo);
+  }
+
+  function handleOpenModal() {
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
   }
 
   function handlePreviewMode() {
     setIsPreviewMode(!isPreviewMode);
+  }
+
+  const deleteTask = useMutation(
+    async () => {
+      try {
+        await api.delete(`/cards/${data.id}`);
+
+        toast.success('Card deletado com sucesso !');
+      } catch (error) {
+        toast.error('Erro ao tentar deletar card.');
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('cards');
+      },
+    }
+  );
+
+  async function handleDeleteCard() {
+    await deleteTask.mutateAsync();
   }
 
   return (
@@ -30,10 +68,16 @@ export function Card() {
             onChange={e => setTitle(e.target.value)}
           />
         ) : (
-          <h3>{title}</h3>
+          <>
+            <button type="button" onClick={handleOpenModal}>
+              <FiTrash2 />
+            </button>
+
+            <h3>{title}</h3>
+          </>
         )}
         <button type="button" onClick={handleEditMode}>
-          <FiEdit />
+          <FiMoreHorizontal />
         </button>
       </S.Header>
       <S.Content>
@@ -59,7 +103,7 @@ export function Card() {
           <button type="button" onClick={handlePreviewMode}>
             {isPreviewMode ? (
               <>
-                <FiEyeOff /> Preview
+                <FiEyeOff /> Close Preview
               </>
             ) : (
               <>
@@ -69,6 +113,28 @@ export function Card() {
           </button>
         )}
       </S.Content>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => handleCloseModal()}
+        overlayClassName="react-modal-overlay"
+        className="react-modal-content"
+      >
+        <S.Content>
+          <S.ModalContent>
+            <h1>Tem certeza que deseja deletar este card ?</h1>
+
+            <div>
+              <button type="button" onClick={handleCloseModal}>
+                Cancelar
+              </button>
+              <button type="button" onClick={handleDeleteCard}>
+                Deletar
+              </button>
+            </div>
+          </S.ModalContent>
+        </S.Content>
+      </Modal>
     </S.Container>
   );
 }
