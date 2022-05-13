@@ -8,7 +8,7 @@ import * as S from './styles';
 import { api } from '../../services/api';
 
 export function Board() {
-  const listTypes = ['ToDo', 'Doing', 'Done'];
+  const listTypes: Array<'ToDo' | 'Doing' | 'Done'> = ['ToDo', 'Doing', 'Done'];
 
   async function signIn() {
     try {

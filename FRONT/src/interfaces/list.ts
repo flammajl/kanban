@@ -6,6 +6,6 @@ export interface ICardList {
 }
 
 export interface IList {
-  list: string;
+  list: 'ToDo' | 'Doing' | 'Done';
   cards: ICardList[];
 }
