@@ -19,6 +19,7 @@ export function Board() {
 
       api.defaults.headers.Authorization = `Bearer ${response.data}`;
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error('Erro ao tentar fazer login');
     }
   }
