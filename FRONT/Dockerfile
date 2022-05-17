@@ -1,5 +1,7 @@
 FROM node:14.17.3-slim
 
+RUN npm install -g http-server
+
 ENV VITE_API_URL=http://localhost:5000
 
 WORKDIR /app-front
@@ -12,6 +14,6 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 4173
+EXPOSE 8080
 
-CMD ["npm", "run", "preview"]
+CMD [ "http-server", "dist" ]
