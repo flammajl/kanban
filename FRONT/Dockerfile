@@ -1,10 +1,9 @@
-FROM node:14.17.3-slim
+# build environment
+FROM node:14-alpine as build
 
-RUN npm install -g http-server
+WORKDIR /app
 
 ENV VITE_API_URL=http://localhost:5000
-
-WORKDIR /app-front
 
 COPY package*.json ./
 
@@ -14,6 +13,11 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
+# production environment
+FROM nginx:alpine
 
-CMD [ "http-server", "dist" ]
+WORKDIR /usr/share/nginx/html
+
+COPY --from=build /app/dist .
+
+CMD ["nginx", "-g", "daemon off;"]

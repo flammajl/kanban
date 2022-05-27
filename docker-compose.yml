@@ -6,7 +6,9 @@ networks:
 
 services:
   back:
-    build: ./BACK
+    build:
+      context: ./BACK/
+      dockerfile: Dockerfile
     container_name: back-kanban
     restart: always
     ports:
@@ -15,10 +17,12 @@ services:
       - kanban-net
 
   front:
-    build: ./FRONT
+    build:
+      context: ./FRONT/
+      dockerfile: Dockerfile
     container_name: front-kanban
     restart: always
     ports:
-      - '8080:8080'
+      - '3000:80'
     networks:
       - kanban-net
